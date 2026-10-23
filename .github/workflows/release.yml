@@ -1,0 +1,54 @@
+name: Windows release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check types
+        run: npm run typecheck
+
+      - name: Build Windows installer
+        run: npm run dist:win -- --publish never
+
+      - name: Publish GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          $version = node -p "require('./package.json').version"
+          $expectedTag = "v$version"
+          if ($env:RELEASE_TAG -ne $expectedTag) {
+            throw "Tag $env:RELEASE_TAG does not match package version $expectedTag"
+          }
+
+          $installer = "release/PrismClient-Setup-$version.exe"
+          $blockmap = "$installer.blockmap"
+          foreach ($asset in @($installer, $blockmap, "release/latest.yml")) {
+            if (-not (Test-Path $asset)) {
+              throw "Release asset not found: $asset"
+            }
+          }
+
+          gh release create $env:RELEASE_TAG $installer $blockmap "release/latest.yml" `
+            --title "PrismClient $version" --generate-notes

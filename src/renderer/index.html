@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0b12" />
+    <title>PrismClient</title>
+  </head>
+  <body>
+    <div class="ambient-effects" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">P</div>
+          <div><strong>PRISM<span>CLIENT</span></strong><small>MINECRAFT JAVA</small></div>
+        </div>
+        <nav aria-label="Hauptnavigation">
+          <button class="nav-item active" data-view="play"><span>▶</span> Spielen</button>
+          <button class="nav-item" data-view="mods"><span>◈</span> Mods</button>
+          <button class="nav-item" data-view="settings"><span>⚙</span> Einstellungen</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="connection"><i></i><span>Offizieller Mojang-Download</span></div>
+          <small>INOFFIZIELLER LAUNCHER</small>
+        </div>
+      </aside>
+      <main class="main">
+        <header class="topbar">
+          <div class="breadcrumb">PRISMCLIENT <b>/</b> <span id="crumb">SPIELEN</span></div>
+          <div class="account-area">
+            <div id="account-name">Nicht angemeldet</div>
+            <button id="account-button" class="account-button">Microsoft-Konto verbinden</button>
+          </div>
+        </header>
+        <section id="update-banner" class="update-banner" aria-live="polite" hidden>
+          <div class="update-banner-copy">
+            <span class="update-banner-icon">↻</span>
+            <span id="update-banner-message">Update-Status</span>
+            <div class="update-progress-track"><div id="update-progress-bar"></div></div>
+          </div>
+          <button id="install-update-button" class="update-install-button" hidden>JETZT NEU STARTEN</button>
+          <button id="dismiss-update-button" class="update-dismiss-button" aria-label="Hinweis schließen">×</button>
+        </section>
+        <section id="play-view" class="view">
+          <div class="hero">
+            <div class="hero-copy">
+              <p class="eyebrow"><i></i> PRISMCLIENT · MINECRAFT JAVA</p>
+              <h1>Deine Welt.<br /><em>Dein nächstes</em><br />Abenteuer.</h1>
+              <p class="hero-description">Modded oder Vanilla. Wähle deine Version und starte direkt in dein nächstes Abenteuer.</p>
+            </div>
+            <div class="avatar-stage">
+              <div class="portal portal-outer"></div>
+              <div class="portal portal-inner"></div>
+              <div class="scene-glow"></div>
+              <div class="scene-pixels" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div id="skin-placeholder" class="skin-placeholder" aria-hidden="true">
+                <span class="skin-head"></span><span class="skin-body"></span>
+                <span class="skin-arm skin-arm-left"></span><span class="skin-arm skin-arm-right"></span>
+                <span class="skin-leg skin-leg-left"></span><span class="skin-leg skin-leg-right"></span>
+              </div>
+              <img id="player-skin" class="player-skin" alt="Minecraft-Spielerskin" referrerpolicy="no-referrer" hidden />
+              <div class="player-caption"><span>DEIN CHARAKTER</span><strong id="player-name">GAST</strong></div>
+            </div>
+            <div class="hero-label">DEIN ABENTEUER<br /><span>BEGINNT HIER</span></div>
+          </div>
+          <div class="launch-panel">
+            <div class="launch-controls">
+              <label class="version-picker">
+                <span>SPIELVERSION</span>
+                <select id="version-select" aria-label="Minecraft Version"></select>
+              </label>
+              <div class="version-info">
+                <span class="status-dot" id="version-dot"></span>
+                <span id="version-state">Version wird geladen …</span>
+              </div>
+              <button id="play-button" class="play-button" disabled><span>▶</span> SPIELEN</button>
+              <button id="install-button" class="secondary-button">INSTALLIEREN</button>
+            </div>
+            <div class="progress-wrap" id="progress-wrap" hidden>
+              <div class="progress-label"><span id="status-message">Bereit</span><span id="progress-value"></span></div>
+              <div class="progress-track"><div id="progress-bar"></div></div>
+            </div>
+          </div>
+          <div class="bottom-cards">
+            <article class="info-card">
+              <span class="card-icon">◈</span>
+              <div><strong>OFFIZIELLE SPIELDATEIEN</strong><p>Downloads direkt von Mojang-Servern</p></div>
+              <span class="card-arrow">↗</span>
+            </article>
+            <button id="folder-button" class="info-card">
+              <span class="card-icon">▣</span>
+              <div><strong>DEIN SPIELORDNER</strong><p id="game-directory-label">Minecraft-Ordner öffnen</p></div>
+              <span class="card-arrow">↗</span>
+            </button>
+            <button id="update-button" class="info-card">
+              <span class="card-icon">↻</span>
+              <div><strong>LAUNCHER-UPDATES</strong><p>Nach einer neuen Version suchen</p></div>
+              <span class="card-arrow">↗</span>
+            </button>
+            <button id="screenshots-button" class="info-card">
+              <span class="card-icon">▧</span>
+              <div><strong>SCREENSHOTS</strong><p>Minecraft-Bilder öffnen</p></div>
+              <span class="card-arrow">↗</span>
+            </button>
+            <button id="saves-button" class="info-card">
+              <span class="card-icon">▣</span>
+              <div><strong>SPIELSTÄNDE</strong><p>Deine Welten öffnen</p></div>
+              <span class="card-arrow">↗</span>
+            </button>
+          </div>
+        </section>
+        <section id="mods-view" class="view mods-view" hidden>
+          <div class="section-heading"><p class="eyebrow">DEINE MODS, DEIN SPIEL</p><h2>Mod-Profile</h2>
+            <p>Erstelle isolierte Fabric- oder Forge-Profile und installiere kompatible Mods aus Modrinth und CurseForge.</p></div>
+          <div class="mods-layout">
+            <section class="mods-panel">
+              <div class="panel-heading"><div><strong>PROFILE</strong><small>Eigene Minecraft- und Loader-Version pro Profil</small></div></div>
+              <form id="profile-form" class="profile-form">
+                <label class="field"><span>PROFILNAME</span><input id="profile-name" maxlength="40" placeholder="z. B. Mein Modpack" required /></label>
+                <div class="profile-form-row">
+                  <label class="field"><span>MINECRAFT</span><select id="profile-version"></select></label>
+                  <label class="field"><span>LOADER</span><select id="profile-loader"><option value="fabric">Fabric</option><option value="forge">Forge</option></select></label>
+                </div>
+                <button class="play-button create-profile-button" type="submit">PROFIL ERSTELLEN &amp; INSTALLIEREN</button>
+              </form>
+              <label class="field profile-select-field"><span>AKTIVES PROFIL</span><select id="profile-select"></select></label>
+              <div id="active-profile-card" class="active-profile-card" hidden>
+                <div><strong id="active-profile-name"></strong><p id="active-profile-info"></p></div>
+                <div class="profile-actions"><button id="launch-profile" class="secondary-button">SPIELEN</button><button id="delete-profile" class="danger-button">LÖSCHEN</button></div>
+              </div>
+              <div class="installed-heading"><strong>INSTALLIERTE MODS</strong><span id="installed-count">0</span></div>
+              <div id="installed-mods" class="installed-mods"><p class="empty-state">Wähle oder erstelle ein Profil.</p></div>
+            </section>
+            <section class="mods-panel browser-panel">
+              <div class="panel-heading"><div><strong>MODS ENTDECKEN</strong><small>Ergebnisse passend zu Profil, Minecraft-Version und Loader</small></div></div>
+              <form id="mod-search-form" class="mod-search-form">
+                <label class="search-input"><span>⌕</span><input id="mod-query" placeholder="Mods suchen …" minlength="2" maxlength="100" required /></label>
+                <select id="mod-provider" aria-label="Mod-Anbieter"><option value="modrinth">Modrinth</option><option value="curseforge">CurseForge</option></select>
+                <button class="browse-button" type="submit">SUCHEN</button>
+              </form>
+              <div id="mod-results" class="mod-results"><p class="empty-state">Wähle ein Profil und suche nach Mods.</p></div>
+              <p class="provider-note">Mods werden direkt vom jeweiligen Anbieter geladen. Mod-Dateien sind ausführbarer Code; installiere nur Mods, denen du vertraust.</p>
+            </section>
+          </div>
+        </section>
+        <section id="settings-view" class="view settings-view" hidden>
+          <div class="section-heading"><p class="eyebrow">PERSÖNLICHE EINSTELLUNGEN</p><h2>Launcher einrichten</h2>
+            <p>Konfiguriere Anmeldung, Java und Speicherort.</p></div>
+          <form id="settings-form">
+            <label class="field"><span>MICROSOFT-CLIENT-ID FÜR PRISMCLIENT</span><input id="client-id" autocomplete="off" placeholder="Öffentliche Entra-Client-ID eintragen" />
+              <small>Öffentliche Client-ID der für PrismClient registrierten Microsoft-Entra-App. Sie ist kein Geheimnis; verwende keine Client-ID einer fremden App.</small></label>
+            <label class="field"><span>MINECRAFT-ORDNER</span><div class="input-row"><input id="game-directory" /><button id="browse-directory" type="button" class="browse-button">DURCHSUCHEN</button></div></label>
+            <label class="field"><span>JAVA-PFAD</span><div class="input-row"><input id="java-path" placeholder="java (wenn Java im PATH liegt)" /><button id="browse-java" type="button" class="browse-button">AUSWÄHLEN</button></div>
+              <small>Java 21 für aktuelle Versionen. Java muss separat installiert sein.</small></label>
+            <label class="field"><span>MAXIMALER ARBEITSSPEICHER</span><select id="max-memory">
+              <option value="2048">2 GB</option><option value="4096">4 GB</option><option value="6144">6 GB</option>
+              <option value="8192">8 GB</option><option value="12288">12 GB</option><option value="16384">16 GB</option>
+            </select><small>Wähle einen Wert passend zum verfügbaren RAM. Gilt für Standard- und Mod-Profile.</small></label>
+            <label class="field"><span>GITHUB-UPDATE-REPOSITORY (OPTIONAL)</span><input id="update-feed" placeholder="https://github.com/OWNER/REPOSITORY" />
+              <small>Leer lassen, um den im Launcher eingebauten GitHub-Release-Feed zu verwenden. Alternativ GitHub-Repository-URL oder HTTPS-Feed eintragen.</small></label>
+            <label class="field"><span>CURSEFORGE API-SCHLÜSSEL</span><input id="curseforge-key" type="password" autocomplete="new-password" placeholder="Optional – für CurseForge-Suche erforderlich" />
+              <small id="curseforge-key-state">Der Schlüssel wird lokal mit Windows-Datenschutzspeicher verschlüsselt und nie an die Oberfläche zurückgegeben.</small>
+              <button id="clear-curseforge-key" class="danger-button" type="button" hidden>GESPEICHERTEN SCHLÜSSEL LÖSCHEN</button></label>
+            <div class="form-actions"><button class="play-button save-button" type="submit">EINSTELLUNGEN SPEICHERN</button><span id="save-state"></span></div>
+          </form>
+          <p class="disclaimer">Minecraft ist Eigentum von Mojang Studios und Microsoft. Dieser unabhängige Launcher wird nicht von Mojang oder Microsoft unterstützt.</p>
+        </section>
+      </main>
+    </div>
+    <section id="auth-dialog" class="auth-dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="auth-dialog-title" hidden>
+      <div class="auth-dialog">
+        <div class="auth-dialog-mark">M</div>
+        <p class="eyebrow"><i></i> SICHERE MICROSOFT-ANMELDUNG</p>
+        <h2 id="auth-dialog-title">Im Browser anmelden</h2>
+        <p id="auth-instructions" class="auth-instructions">Der Browser wird geöffnet. Gib dort den folgenden Code ein.</p>
+        <div class="device-code-row">
+          <code id="device-code">------</code>
+          <button id="copy-device-code" class="browse-button" type="button">CODE KOPIEREN</button>
+        </div>
+        <p class="auth-verification">Microsoft-Seite: <strong id="verification-address">microsoft.com/devicelogin</strong></p>
+        <div class="auth-waiting"><span></span><p id="auth-progress-message">Warte auf Microsoft …</p></div>
+        <p class="auth-privacy">E-Mail und Passkey/Passwort gibst du ausschließlich bei Microsoft ein. Der Launcher erhält nur die Bestätigung und speichert keine Zugangsdaten oder Passkeys.</p>
+        <button id="cancel-sign-in" class="auth-cancel-button" type="button">ABBRECHEN</button>
+      </div>
+    </section>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
